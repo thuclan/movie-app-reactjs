@@ -1,4 +1,4 @@
-import { React, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 import "./header.scss";
 import { Link, useLocation } from "react-router-dom";
@@ -11,7 +11,7 @@ const headerNav = [
   },
   {
     display: "Movies",
-    path: "/movies",
+    path: "/movie",
   },
   {
     display: "TV Series",
@@ -36,6 +36,9 @@ const Header = () => {
       }
     };
     window.addEventListener("scroll", shrinkHeader);
+    return () => {
+      window.removeEventListener("scroll", shrinkHeader);
+    };
   }, []);
 
   return (
@@ -45,13 +48,13 @@ const Header = () => {
           <img src={logo} alt="" />
           <Link to="/">tMovies</Link>
         </div>
-        <div className="header__nav">
+        <ul className="header__nav">
           {headerNav.map((e, i) => (
             <li key={i} className={`${i === active ? "active" : ""}`}>
               <Link to={e.path}>{e.display}</Link>
             </li>
           ))}
-        </div>
+        </ul>
       </div>
     </div>
   );
